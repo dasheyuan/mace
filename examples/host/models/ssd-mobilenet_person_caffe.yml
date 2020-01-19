@@ -1,0 +1,31 @@
+library_name: ssd-mobilenet-v1
+target_abis: [armeabi-v7a]
+model_graph_format: file
+model_data_format: file
+models:
+  ssd_mobilenet_v1:
+    platform: caffe
+    model_file_path: http://192.168.20.79:8200/static/MobileNetSSD_deploy_new.prototxt
+    weight_file_path: http://192.168.20.79:8200/static/MobileNetSSD_deploy10695.caffemodel
+    model_sha256_checksum: ebeea37585fd88f1d9af762e3e1f9399fdfed431697badc0832dee3fac98e931
+    weight_sha256_checksum: 65641c22127541a8af7ebc3aba21c58b84589308bcbf7e54b08efd8aa55b4e38
+    subgraphs:
+      - input_tensors:
+          - data
+        input_shapes:
+          - 1,300,300,3
+        output_tensors:
+          - mbox_loc
+          - mbox_conf_flatten
+          - mbox_priorbox
+        output_shapes:
+          - 1,7668
+          - 1,3834
+          - 1,2,7668
+        validation_inputs_data:
+          - https://cnbj1.fds.api.xiaomi.com/mace/inputs/cat300.npy
+    runtime: cpu+gpu
+    limit_opencl_kernel_time: 0
+    nnlib_graph_mode: 0
+    obfuscate: 0
+    winograd: 0
